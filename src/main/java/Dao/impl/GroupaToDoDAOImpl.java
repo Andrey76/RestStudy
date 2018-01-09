@@ -2,23 +2,20 @@ package Dao.impl;
 
 import Dao.api.GroupToDoDAO;
 import Model.GroupToDo;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
-@Transactional
-public class GroupaToDoDAOImpl implements GroupToDoDAO{
-    @Autowired
-    private SessionFactory sessionFactory;
+
+public class GroupaToDoDAOImpl implements GroupToDoDAO {
+
     List<GroupToDo> groupToDos = null;
     GroupToDo groupToDo = new GroupToDo();
+
     @Override
     public GroupToDo getGroupToDo(int id) {
-        return sessionFactory.getCurrentSession().get(GroupToDo.class, id);
+        return null;
     }
 
     @Override
@@ -26,7 +23,7 @@ public class GroupaToDoDAOImpl implements GroupToDoDAO{
         return null;
     }
 
-//    @Override
+
 //    public List<ToDo> list() {
 //        Session session = sessionFactory.getCurrentSession();
 //        CriteriaBuilder cb = session.getCriteriaBuilder();

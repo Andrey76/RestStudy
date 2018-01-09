@@ -2,19 +2,21 @@ package Controller;
 
 import Model.GroupToDo;
 import Service.GroupToDoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GroupToDoController {
-    @Autowired
+
     private GroupToDoService groupToDoService;
 
-    @GetMapping("/getGroupToDo")
-    public ResponseEntity GroupToDo (int id) {
-        GroupToDo business = groupToDoService.getGroupToDo(id);
+    @RequestMapping(value = "/getGroupToDo/{id}", produces="application/json", method = RequestMethod.GET)
+    public ResponseEntity GroupToDo(  @PathVariable("id") String id) {
+        Integer id1 = Integer.valueOf(id);
+        GroupToDo business = groupToDoService.getGroupToDo(id1);
         return ResponseEntity.ok().body(business);
     }
 }
