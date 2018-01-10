@@ -1,7 +1,8 @@
-package Dao.impl;
+package com.bus.Dao.impl;
 
-import Dao.api.GroupToDoDAO;
-import Model.GroupToDo;
+import com.bus.Dao.api.GroupToDoDAO;
+import com.bus.model.GroupToDo;
+import com.bus.model.ToDo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,10 +20,25 @@ public class GroupaToDoDAOImpl implements GroupToDoDAO {
     }
 
     @Override
-    public GroupToDo getGroupToDo() {
-        return null;
+    public void addGroupToDo(ToDo toDo) {
+
     }
 
+    @Override
+    public void deleteGroupToDo(int GroupToDoId) {
+
+    }
+
+    @Override
+    public void updateGroupToDo(ToDo toDo) {
+
+    }
+
+
+    @Override
+    public List<ToDo> getAllToDo() {
+        return null;
+    }
 
 //    public List<ToDo> list() {
 //        Session session = sessionFactory.getCurrentSession();

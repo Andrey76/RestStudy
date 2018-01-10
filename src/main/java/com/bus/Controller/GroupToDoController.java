@@ -1,7 +1,7 @@
-package Controller;
+package com.bus.Controller;
 
-import Model.GroupToDo;
-import Service.GroupToDoService;
+import com.bus.model.GroupToDo;
+import com.bus.Service.ServiceImpl.GroupToDoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
