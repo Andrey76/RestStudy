@@ -4,11 +4,11 @@ import com.bus.Dao.api.GroupToDoDAO;
 import com.bus.model.GroupToDo;
 import com.bus.model.ToDo;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @Repository
-
 public class GroupaToDoDAOImpl implements GroupToDoDAO {
 
     List<GroupToDo> groupToDos = null;

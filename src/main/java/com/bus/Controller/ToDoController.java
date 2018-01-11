@@ -24,14 +24,14 @@ public class ToDoController {
         return new ResponseEntity<ToDo>(toDo1, HttpStatus.OK);
     }
 
-    @GetMapping("todos")
+    @RequestMapping(value = "/todos", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<ToDo>> getAllToDo() {
         List<ToDo> list = toDoService.getAllToDo();
         if (list.isEmpty()){
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<ToDo>>(list, HttpStatus.OK);
-    }
+}
 
     @RequestMapping(path="/add",method=RequestMethod.POST)
     public ResponseEntity<Void> create(@RequestBody ToDo toDo) {

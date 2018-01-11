@@ -24,12 +24,12 @@ public class ToDoDAOImpl implements ToDoDAO {
 
     @Override
     public void deleteToDo(int todoId) {
-    entityManager.remove(getToDo(todoId));
+        entityManager.remove(getToDo(todoId));
     }
 
     @Override
     public void updateToDo(ToDo toDo) {
-    entityManager.merge(toDo);
+        entityManager.merge(toDo);
     }
 
     @Override
@@ -40,8 +40,10 @@ public class ToDoDAOImpl implements ToDoDAO {
 
     @Override
     public List<ToDo> getAllToDo() {
-        String hql = "FROM ToDo as atcl ORDER BY atcl.id";
-        return (List<ToDo>) entityManager.createQuery(hql).getResultList();
+       // String hql = "FROM ToDo as t INNER JOIN t.groupTodo as gt";
+      String hql = "FROM ToDo as atcl ORDER BY atcl.id";
+        List<ToDo> list = entityManager.createQuery(hql).getResultList();
+        return list;
     }
 
 }
