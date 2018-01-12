@@ -1,6 +1,7 @@
 package com.bus.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,16 +9,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "todo")
+
 public class ToDo implements Serializable {
-    private static final long serialVersionUID = 12L;
     @Column(name = "business")
     private String business;
     @Id
     @Column(name = "id")
     @GeneratedValue
     private int id;
-    @ManyToOne
-    @JoinColumn(columnDefinition = "group_todo_group_to_do_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(columnDefinition = "group_id")
+    @JsonIgnoreProperties("listOfBusiness")
+////    @JsonManagedReference
     private GroupToDo groupTodo;
 
     public ToDo() {
@@ -36,7 +39,7 @@ public class ToDo implements Serializable {
         this.business = business;
     }
 
-    @JsonIgnore
+
     public int getId() {
         return id;
     }
@@ -44,8 +47,6 @@ public class ToDo implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-
     public GroupToDo getGroupTodo() {
         return groupTodo;
     }
@@ -54,10 +55,13 @@ public class ToDo implements Serializable {
         this.groupTodo = groupTodo;
     }
 
+
     @Override
     public String toString() {
-        return "Model.ToDo{" +
+        return "ToDo{" +
                 "business='" + business + '\'' +
+                ", id=" + id +
+                ", groupTodo=" + groupTodo +
                 '}';
     }
 

@@ -2,6 +2,7 @@ package com.bus.Dao.impl;
 
 import com.bus.Dao.api.ToDoDAO;
 import com.bus.model.ToDo;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,11 +38,11 @@ public class ToDoDAOImpl implements ToDoDAO {
 
         return entityManager.find(ToDo.class, id);
     }
-
+    @Lazy
     @Override
     public List<ToDo> getAllToDo() {
-        String hql = "FROM ToDo as t INNER JOIN t.groupTodo as gt";
-//      String hql = "FROM ToDo as atcl ORDER BY atcl.id";
+//        String hql = "FROM ToDo as t INNER JOIN t.groupTodo as gt";
+      String hql = "FROM ToDo as atcl ORDER BY atcl.id";
         List<ToDo> list = entityManager.createQuery(hql).getResultList();
         return list;
     }

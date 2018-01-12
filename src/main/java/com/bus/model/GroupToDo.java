@@ -1,5 +1,9 @@
 package com.bus.model;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -9,19 +13,23 @@ import java.util.Set;
 @Entity
 @Table(name = "groupToDo")
 public class GroupToDo implements Serializable {
-    private static final long serialVersionUID = 1222L;
-    @OneToMany(targetEntity = ToDo.class, mappedBy = "groupTodo")
+    @OneToMany(targetEntity = ToDo.class, mappedBy = "groupTodo",
+           cascade = CascadeType.ALL)
+      @JsonIgnoreProperties("groupTodo")
+//    @JsonBackReference
     private Set<ToDo> listOfBusiness = new HashSet<ToDo>();
     @Id
-    @Column(name = "group_to_do_id")
     @GeneratedValue
-    private int id;
-
+    @Column(name = "group_id")
+    private int group_id;
+    @Column(name = "nameOfToDo")
+    private String nameOfToDo;
     public GroupToDo() {
     }
 
-    public GroupToDo(int id) {
-        this.id = id;
+    public GroupToDo(int id, String nameOfToDo) {
+        this.group_id = id;
+        this.nameOfToDo = nameOfToDo;
     }
 
     public GroupToDo(Set<ToDo> listOfBusiness) {
@@ -36,19 +44,20 @@ public class GroupToDo implements Serializable {
         this.listOfBusiness = listOfBusiness;
     }
 
-    public int getId() {
-        return id;
+    public int getGroup_id() {
+        return group_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGroup_id(int id) {
+        this.group_id = id;
     }
 
-    @Override
-    public String toString() {
-        return "GroupTodo{" +
-                "listOfBusiness=" + listOfBusiness +
-                '}';
+    public String getNameOfToDo() {
+        return nameOfToDo;
+    }
+
+    public void setNameOfToDo(String nameOfToDo) {
+        this.nameOfToDo = nameOfToDo;
     }
 
     @Override
@@ -56,13 +65,23 @@ public class GroupToDo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupToDo groupToDo = (GroupToDo) o;
-        return id == groupToDo.id &&
-                Objects.equals(listOfBusiness, groupToDo.listOfBusiness);
+        return group_id == groupToDo.group_id &&
+                Objects.equals(listOfBusiness, groupToDo.listOfBusiness) &&
+                Objects.equals(nameOfToDo, groupToDo.nameOfToDo);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(listOfBusiness, id);
+        return Objects.hash(listOfBusiness, group_id, nameOfToDo);
+    }
+
+    @Override
+    public String toString() {
+        return "GroupToDo{" +
+                "listOfBusiness=" + listOfBusiness +
+                ", group_id=" + group_id +
+                ", nameOfToDo='" + nameOfToDo + '\'' +
+                '}';
     }
 }

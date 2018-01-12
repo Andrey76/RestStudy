@@ -43,6 +43,11 @@ public class ToDoController {
         }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
+    @PutMapping("updatet")
+    public ResponseEntity<ToDo> update(@RequestBody ToDo toDo){
+        toDoService.updateToDo(toDo);
+        return new ResponseEntity<ToDo>(toDo, HttpStatus.OK);
+    }
 }
 
 
