@@ -18,13 +18,13 @@ public class ToDoController {
     @Autowired
     private ToDoService toDoService;
 
-    @RequestMapping(value = "/todo/{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/todo/{id}", produces = "application/json")
     public ResponseEntity<ToDo> getToDo(@PathVariable("id") int id) {
         ToDo toDo1 = toDoService.getToDo(id);
         return new ResponseEntity<ToDo>(toDo1, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/todos", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/todos", produces = "application/json")
     public ResponseEntity<List<ToDo>> getAllToDo() {
         List<ToDo> list = toDoService.getAllToDo();
         if (list.isEmpty()){
@@ -33,20 +33,25 @@ public class ToDoController {
         return new ResponseEntity<List<ToDo>>(list, HttpStatus.OK);
 }
 
-    @RequestMapping(path="/add",method=RequestMethod.POST)
+    @PostMapping(path="/add")
     public ResponseEntity<Void> create(@RequestBody ToDo toDo) {
             ToDo toDo1 = toDoService.addToDo(toDo);
         try {
-            return ResponseEntity.created(new URI("/add/"+ toDo.getId())).build();
+            return ResponseEntity.created(new URI("/add/"+ toDo1.getId())).build();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
-    @PutMapping("updatet")
+    @PutMapping(value = "/updatet", produces = "application/json")
     public ResponseEntity<ToDo> update(@RequestBody ToDo toDo){
         toDoService.updateToDo(toDo);
         return new ResponseEntity<ToDo>(toDo, HttpStatus.OK);
+    }
+    @DeleteMapping("todo/{id}")
+    public ResponseEntity<Void> deleteTodo (@PathVariable("id") int id){
+        toDoService.deleteToDo(id);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }
 

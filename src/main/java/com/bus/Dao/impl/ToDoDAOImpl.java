@@ -41,7 +41,6 @@ public class ToDoDAOImpl implements ToDoDAO {
     @Lazy
     @Override
     public List<ToDo> getAllToDo() {
-//        String hql = "FROM ToDo as t INNER JOIN t.groupTodo as gt";
       String hql = "FROM ToDo as atcl ORDER BY atcl.id";
         List<ToDo> list = entityManager.createQuery(hql).getResultList();
         return list;
